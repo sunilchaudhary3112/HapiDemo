@@ -120,6 +120,75 @@ server.route({
     }
 });
 
+//Update user
+server.route({
+    method: 'PUT',
+    path: '/api/user/{id}',
+    config: {
+        tags: ['api'],
+        description: 'Update specific user data',
+        notes: 'Update specific user data',
+        validate: {
+            params: {
+                id: Joi.string().required()
+            },
+            payload: {
+                name: Joi.string(), age: Joi.number()
+            }
+        }
+    },
+    handler: function (request, reply) {
+        UserModel.findOneAndUpdate({ _id: request.params.id },
+            request.payload, function (error, data) {
+                if (error) {
+                    reply({
+                        statusCode: 503,
+                        message: 'Failed to get data',
+                        data: error
+                    });
+                } else {
+                    reply({
+                        statusCode: 200,
+                        message: 'User Updated Successfully',
+                        data: data
+                    });
+                }
+            });
+    }
+});
+
+//Delete user by id
+server.route({
+    method: 'DELETE',
+    path: '/api/user/{id}',
+    config: {
+        tags: ['api'],
+        description: 'Remove specific user data',
+        notes: 'Remove specific user data',
+        validate: {
+            params: {
+                id: Joi.string().required()
+            }
+        }
+    },
+    handler: function (request, reply) {
+        UserModel.findOneAndRemove({ _id: request.params.id }, function (error, data) {
+            if (error) {
+                reply({
+                    statusCode: 503,
+                    message: 'Error in removing User',
+                    data: error
+                });
+            } else {
+                reply({
+                    statusCode: 200,
+                    message: 'User Deleted Successfully'
+                });
+            }
+        });
+    }
+});
+
 server.start(function () {
     console.log('Server running at:', server.info.uri);
 }); 
