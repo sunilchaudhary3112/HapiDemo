@@ -1,1 +1,13 @@
-{ "name": "RESTful-HAPI", "version": "0.0.1", "main": "app.js", "dependencies": { "good": "^6.0.0","good-console": "^5.0.0", "hapi": "^8.5.1", "hapi-swagger": "0.7.3", "joi": "^6.4.2", "mongoose": "^4.0.3" } } 
+{ "name": "RESTful-HAPI", 
+"version": "0.0.1", 
+"main": "app.js", 
+"dependencies": {
+    "good": "^6.0.0",
+    "good-console": "^5.0.0", 
+    "hapi": "^8.5.1", 
+    "hapi-swagger": "0.7.3", 
+    "joi": "^6.4.2", 
+    "mongoose": "^4.0.3",
+    "async": "^1.5.0",
+    "bluebird": "^2.9.34",
+    "request": "^2.72.0"} } 

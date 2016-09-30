@@ -3,6 +3,12 @@ var server = new Hapi.Server();
 var mongoose = require('mongoose');
 var UserModel = require('./models/user');
 var Joi = require('joi');
+var HTTPrequest = require('request');
+var Promise = require('bluebird');
+var Client = require('node-rest-client').Client;
+ 
+var client = new Client();
+//var _ = require('lodash');
 mongoose.connect('mongodb://localhost/restdemo');
 
 server.connection({ port: 7002 });
@@ -189,6 +195,43 @@ server.route({
     }
 });
 
+//Cric api call
+server.route({
+    method: 'GET',
+    path: '/api/cricapi/',
+    config: {
+        tags: ['api'],
+        description: 'Get cricket info',
+        notes: 'Get cricket info'
+    },
+    handler: function (request, reply) {
+        return GetCricInfo().then(function (return_data) {
+            return reply({
+                statusCode: 200,
+                message: 'User Data Successfully Fetched',
+                data: return_data
+            });
+        }).catch(function (err) {
+            return reject({
+                'error': err.message
+            });
+        });
+    }
+});
 server.start(function () {
     console.log('Server running at:', server.info.uri);
-}); 
+});
+
+var GetCricInfo = function () {
+    var url_to_call = 'http://cricapi.com/api/cricket';
+    return new Promise(function (resolve, reject) {
+        // direct way 
+client.get(url_to_call, function (data, response) {
+    // parsed response body as js object 
+    console.log(data);
+    // raw response 
+    console.log(response);
+    return resolve(data);
+});
+    });
+};
