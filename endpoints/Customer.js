@@ -1,5 +1,5 @@
 
-var Joi = require('joi');   
+var Joi = require('joi');
 module.exports = function (server, options) {
     //Get All customer
     server.route({
@@ -37,7 +37,15 @@ module.exports = function (server, options) {
             notes: 'Save Customer data',
             validate: {
                 payload: {
-                    name: Joi.string().required(), age: Joi.number().required()
+                    name: Joi.string().required(),
+                    age: Joi.number().required(),
+                    name: Joi.string().required(),
+                    email_id: Joi.string().required(),
+                    referral_id: Joi.string().required(),
+                    payback: Joi.number().required(),
+                    isAmbassador: Joi.boolean().default(false, 'isAmbassador flag'),
+                    joiningDate: Joi.string().required(),
+                    lastUpdated: Joi.string().required(),
                 }
             }
         }, handler: function (request, reply) {
