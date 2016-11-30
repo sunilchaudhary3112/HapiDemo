@@ -10,4 +10,5 @@
     "mongoose": "^4.0.3",
     "async": "^1.5.0",
     "bluebird": "^2.9.34",
-    "request": "^2.72.0"} } 
+    "request": "^2.72.0",
+    "node-uuid":"1.4.7"} } 
